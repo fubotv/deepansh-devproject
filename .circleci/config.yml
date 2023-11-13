@@ -76,7 +76,7 @@ jobs:
 
 workflows:
   version: 2
-  build_test_deploy-DEV:
+  build_deploy-DEV:
     jobs:
       - build:
           context:
@@ -93,7 +93,6 @@ workflows:
             tags:
               ignore:
                 - /.*/
-
       - deploy:
           context:
             - de-common
@@ -110,4 +109,3 @@ workflows:
             tags:
               ignore:
                 - /.*/
-
