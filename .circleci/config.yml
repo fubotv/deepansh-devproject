@@ -85,19 +85,16 @@ jobs:
             export TAG=`git rev-parse --short=10 HEAD`
 
             echo ">>> projectId=[${projectId}]" | tr '[:lower:]' '[:upper:]'
-            docker tag de-data-sync:${TAG} gcr.io/${projectId}/de-engineering/deepansh-devproject:${TAG}
-            gcloud docker -- push gcr.io/${projectId}/de-engineering/de-data-sync:${TAG}
+            docker tag deepansh-devproject:${TAG} gcr.io/${projectId}/de-engineering/deepansh-devproject:${TAG}
+            gcloud docker -- push gcr.io/${projectId}/de-engineering/deepansh-devproject:${TAG}
 
-            docker tag de-data-sync:${TAG} gcr.io/${projectId}/de-engineering/deepansh-devproject:latest
-            gcloud docker -- push gcr.io/${projectId}/de-engineering/de-data-sync:latest
+            docker tag deepansh-devproject:${TAG} gcr.io/${projectId}/de-engineering/deepansh-devproject:latest
+            gcloud docker -- push gcr.io/${projectId}/de-engineering/deepansh-devproject:latest
 
             dagUrl="${ROOT_COMPOSER2_DAG_URL}"
             echo ">>> copying dags to  ${dagUrl}" | tr '[:lower:]' '[:upper:]'
 
-            gsutil -m cp ~/project/src/main/python/de_airflow/*.py ${dagUrl}/dags
-            gsutil -m cp -r ~/project/src/main/python/de_airflow/dag_utils ${dagUrl}/dags
-            gsutil -m cp -r ~/project/src/main/python/plugins/gcs_to_bigquery_plugin.py ${dagUrl}/plugins/operators/
-
+            gsutil -m cp ~/project/src/main/python/*.py ${dagUrl}/dags
 
 workflows:
   version: 2
@@ -111,6 +108,7 @@ workflows:
           filters:
             branches:
               only:
+                - main
                 - master
                 - /^(feature).*/
                 - /^(test-deploy).*(-dev).*$/
@@ -128,6 +126,7 @@ workflows:
           filters:
             branches:
               only:
+                - main
                 - master
                 - /^(feature).*/
                 - /^(test-deploy).*(-dev).*$/
@@ -145,6 +144,7 @@ workflows:
           filters:
             branches:
               only:
+                - main
                 - master
                 - /^(test-deploy).*(-dev).*$/
             tags:
