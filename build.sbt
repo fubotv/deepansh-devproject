@@ -23,6 +23,7 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
 
 lazy val macroSettings = Def.settings(
   libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
   libraryDependencies ++= {
     VersionNumber(scalaVersion.value) match {
       case v if v.matchesSemVer(SemanticSelector("2.12.x")) =>
