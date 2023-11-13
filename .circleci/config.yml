@@ -99,7 +99,7 @@ workflows:
             - de-dev
             - fubotv-gci-pull
           requires:
-            - test
+            - build
           filters:
             branches:
               only:
