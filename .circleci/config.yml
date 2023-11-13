@@ -116,24 +116,6 @@ workflows:
               ignore:
                 - /.*/
 
-      - test:
-          context:
-            - de-common
-            - de-dev
-            - fubotv-gci-pull
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - main
-                - master
-                - /^(feature).*/
-                - /^(test-deploy).*(-dev).*$/
-            tags:
-              ignore:
-                - /.*/
-
       - deploy:
           context:
             - de-common
