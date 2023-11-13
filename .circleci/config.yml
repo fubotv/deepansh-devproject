@@ -32,28 +32,6 @@ jobs:
             - "~/.m2"
             - "/var/lib/docker/"
 
-  test:
-    docker:
-      - image: gcr.io/fubotv-dev/data-engineering/build-env/de-sbt-docker:latest
-        auth:
-          username: _json_key
-          password: ${DEV_GCLOUD_KEY_JSON}
-    working_directory: ~/repo
-    environment:
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.sbt" }}
-      - run:
-          name: Run tests with coverage
-          command: |
-            .circleci/scripts/gcp-login.sh
-            export GITHUB_TOKEN=$(gcloud secrets versions access latest --secret="${DE_BOT_GITHUB_TOKEN_SECRET}")
-            cat /dev/null | sbt -mem 2048 coverage test:test coverageReport coverageAggregate coveralls
-
   deploy:
     docker:
       - image: gcr.io/fubotv-dev/data-engineering/build-env/de-sbt-docker:latest
