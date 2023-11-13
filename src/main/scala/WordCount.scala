@@ -1,8 +1,8 @@
 import com.spotify.scio._
 import org.apache.beam.sdk.PipelineResult
 object WordCount {
-  def main(args: Array[String]): Unit = {
-    val (sc, args) = ContextAndArgs(args)
+  def main(CmdArgs: Array[String]): Unit = {
+    val (sc, args) = ContextAndArgs(CmdArgs)
     println("Hello world! The code has started executing")
     sc.options.setTempLocation("gs://test-bucket-deepansh/tmp/")
 
