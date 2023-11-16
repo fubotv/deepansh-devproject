@@ -16,6 +16,11 @@ object WordCount {
     println(s"The input file is :- $input")
     println(s"The output folder is :- $output")
 
+    sc.textFile(input)
+      .flatMap(_.split("[^a-zA-Z']+").filter(_.nonEmpty))
+      .countByValue
+      .map(kv => kv._1 + ": " + kv._2)
+      .saveAsTextFile(output)
     val res = sc.run().waitUntilFinish()
     // result.waitUntilFinish()
     if (res.state == PipelineResult.State.DONE)
