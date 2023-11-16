@@ -118,7 +118,7 @@ def create_test_word_count(dag, job_name='deepansh-devproject', job_class='WordC
 
 def my_task():
     # Add logging to check the state of pod_request_obj
-    logging.info(f"Pod request object: {pod_request_obj}")
+    print(f"Pod request object: {pod_request_obj}")
 
 task = PythonOperator(
     task_id='my_task',
