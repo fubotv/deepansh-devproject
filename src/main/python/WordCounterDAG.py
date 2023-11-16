@@ -5,6 +5,7 @@ from airflow.models import Variable
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
 from airflow.utils import dates
 from datetime import timedelta
+from airflow.operators.python_operator import PythonOperator
 
 
 ENV = os.environ['COMPOSER_ENV']
@@ -115,6 +116,15 @@ def create_test_word_count(dag, job_name='deepansh-devproject', job_class='WordC
     with dag:
         return createKubeJob(dag, job_name, final_arg_list)
 
+def my_task():
+    # Add logging to check the state of pod_request_obj
+    print("Pod request object:")
+
+task = PythonOperator(
+    task_id='my_task',
+    python_callable=my_task,
+    dag=dag,
+)
 
 def createKubeJob(dag, name, arg_list, failure_callback_func=None):
     name = name.replace('_', '-')  # no underscores in names
@@ -146,4 +156,4 @@ def createKubeJob(dag, name, arg_list, failure_callback_func=None):
     )
 
 word_count = create_test_word_count(dag)
-word_count
+task >> word_count

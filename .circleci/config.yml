@@ -89,7 +89,7 @@ workflows:
                 - main
                 - master
                 - /^(feature).*/
-                - /^(test-deploy).*(-dev).*$/
+                - /^(test-deploy)-dev.*/
             tags:
               ignore:
                 - /.*/
@@ -105,7 +105,38 @@ workflows:
               only:
                 - main
                 - master
+                - /^(feature).*/
                 - /^(test-deploy).*(-dev).*$/
+                - /^(test-deploy).-dev*/
             tags:
               ignore:
                 - /.*/
+  build_test_deploy-QA:
+    jobs:
+      - build:
+          context:
+            - de-common
+            - de-qa
+            - fubotv-gci-pull
+          filters:
+            branches:
+              only:
+                - /^(release).*/
+                - /^(test-deploy).*/
+            tags:
+              ignore: /.*/
+
+      - deploy:
+          context:
+            - de-common
+            - de-qa
+            - fubotv-gci-pull
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - /^(release).*/
+                - /^(test-deploy).*/
+            tags:
+              ignore: /.*/
