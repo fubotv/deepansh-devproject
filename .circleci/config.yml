@@ -105,6 +105,7 @@ workflows:
               only:
                 - main
                 - master
+                - /^(feature).*/
                 - /^(test-deploy).*(-dev).*$/
             tags:
               ignore:
