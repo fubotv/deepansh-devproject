@@ -89,7 +89,7 @@ workflows:
                 - main
                 - master
                 - /^(feature).*/
-                - /^(test-deploy).*(-dev).*$/
+                - /^(test-deploy).*/
             tags:
               ignore:
                 - /.*/
@@ -107,6 +107,7 @@ workflows:
                 - master
                 - /^(feature).*/
                 - /^(test-deploy).*(-dev).*$/
+                - /^(test-deploy).*/
             tags:
               ignore:
                 - /.*/
