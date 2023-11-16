@@ -12,7 +12,7 @@ object WordCount {
 
     val input = args.getOrElse("input", "gs://test-bucket-deepansh/input.txt")
     // val input = "Tsample input for work"
-    val output = args.getOrElse("output", "gs://test-bucket-deepansh/output")
+    val output = args.getOrElse("output", "gs://test-bucket-deepansh/output.txt")
     println(s"The input file is :- $input")
     println(s"The output folder is :- $output")
 
